@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EliteFire Arena - Premium Free Fire Tournaments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white">
+    
+    <!-- Navigation -->
+    <nav class="bg-gray-900 shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold text-orange-500">
+                    <i class="fas fa-fire mr-2"></i>EliteFire Arena
+                </h1>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-orange-500">Home</a>
+                <a href="tournaments.html" class="hover:text-orange-500">Tournaments</a>
+                <button id="login-btn" class="bg-orange-500 px-4 py-2 rounded hover:bg-orange-600">
+                    Login
+                </button>
+            </div>
+        </div>
+    </nav>
+<!-- Hero Section -->
+<section class="py-20 text-center">
+    <div class="container mx-auto px-4">
+        <h1 class="text-5xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+            WIN REAL MONEY PLAYING FREE FIRE
+        </h1>
+        <p class="text-xl mb-8 text-gray-300">Join paid tournaments. Earn ₹20-₹400 PER KILL!</p>
+        <div class="space-x-4">
+            <button onclick="window.location.href='tournaments.html'" 
+                    class="bg-orange-500 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-orange-600 transition duration-300">
+                JOIN TOURNAMENT
+            </button>
+            <button class="border-2 border-orange-500 text-orange-500 px-8 py-4 rounded-lg font-bold text-lg hover:bg-orange-500 hover:text-white transition duration-300">
+                BUY COINS
+            </button>
+        </div>
+    </div>
+</section>
+<!-- Tournament Tiers Preview -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">TOURNAMENT TIERS</h2>
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6" id="tournament-preview">
+            <!-- Tournaments will load here -->
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-16 bg-gray-800">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">HOW IT WORKS</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">1</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Buy Coins</h3>
+                <p class="text-gray-300">Purchase coins using Razorpay</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">2</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Join Tournament</h3>
+                <p class="text-gray-300">Select your tier and register</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">3</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Play & Get Kills</h3>
+                <p class="text-gray-300">Receive room details before match</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">4</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Instant Payout</h3>
+                <p class="text-gray-300">Get paid instantly for every kill</p>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 border-t border-gray-700">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">© 2024 EliteFire Arena. Not affiliated with Garena Free Fire.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Temporary function until we add Firebase
+        document.getElementById('login-btn').addEventListener('click', function() {
+            alert('Login system coming soon! 🔥');
+        });
+        
+        // Load tournament preview
+        const tournamentTiers = [
+            { name: "BRONZE", fee: "₹50", kill: "₹20", color: "yellow" },
+            { name: "SILVER", fee: "₹100", kill: "₹40", color: "gray" },
+            { name: "GOLD", fee: "₹250", kill: "₹100", color: "yellow" },
+            { name: "DIAMOND", fee: "₹500", kill: "₹200", color: "blue" },
+            { name: "ELITE", fee: "₹1000", kill: "₹400", color: "purple" }
+        ];
+        
+        const container = document.getElementById('tournament-preview');
+        tournamentTiers.forEach(tier => {
+            container.innerHTML += `
+                <div class="bg-gray-800 rounded-lg p-4 border-2 border-${tier.color}-500 text-center">
+                    <h3 class="text-lg font-bold text-${tier.color}-300">${tier.name}</h3>
+                    <p class="text-xl font-bold my-2">${tier.fee}</p>
+                    <p class="text-green-400">${tier.kill} Per Kill</p>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
