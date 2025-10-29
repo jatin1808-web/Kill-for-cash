@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournaments - EliteFire Arena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+        .tournament-card {
+            transition: all 0.3s ease;
+        }
+        .tournament-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white">
+    
+    <!-- Navigation -->
+    <nav class="bg-gray-900 shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-orange-500">
+                    <i class="fas fa-fire mr-2"></i>EliteFire Arena
+                </a>
+            </div>
+            <div class="flex space-x-4">
+                <a href="index.html" class="hover:text-orange-500">Home</a>
+                <a href="tournaments.html" class="text-orange-500 font-bold">Tournaments</a>
+                <button id="login-btn" class="bg-orange-500 px-4 py-2 rounded hover:bg-orange-600">
+                    Login
+                </button>
+            </div>
+        </div>
+    </nav>
+<!-- Header -->
+<section class="py-12 text-center">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bold mb-4">AVAILABLE TOURNAMENTS</h1>
+        <p class="text-xl text-gray-300">Choose your tier and start earning!</p>
+    </div>
+</section>
+
+<!-- Tournament Filters -->
+<section class="py-6 bg-gray-800">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-wrap gap-4 justify-center">
+            <button class="bg-orange-500 px-6 py-2 rounded-full font-bold">ALL</button>
+            <button class="bg-gray-700 px-6 py-2 rounded-full hover:bg-gray-600">BRONZE</button>
+            <button class="bg-gray-700 px-6 py-2 rounded-full hover:bg-gray-600">SILVER</button>
+            <button class="bg-gray-700 px-6 py-2 rounded-full hover:bg-gray-600">GOLD</button>
+            <button class="bg-gray-700 px-6 py-2 rounded-full hover:bg-gray-600">DIAMOND</button>
+            <button class="bg-gray-700 px-6 py-2 rounded-full hover:bg-gray-600">ELITE</button>
+        </div>
+    </div>
+</section>
+
+<!-- Tournament Grid -->
+<section class="py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="tournament-list">
+            <!-- Tournaments will load here dynamically -->
+        </div>
+    </div>
+</section>
+
+<!-- User Dashboard Section (Hidden until login) -->
+<section id="user-dashboard" class="py-12 bg-gray-800 hidden">
+    <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-6">MY TOURNAMENTS</h2>
+        <div id="my-tournaments" class="space-y-4">
+            <!-- User's tournaments will appear here -->
+        </div>
+    </div>
+</section>
+
+<!-- Coin Packages -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">BUY COINS</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6" id="coin-packages-container">
+            <!-- Coin packages will load here -->
+        </div>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 border-t border-gray-700">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="text-gray-400 hover:text-white">Terms</a>
+                <a href="#" class="text-gray-400 hover:text-white">Privacy</a>
+                <a href="#" class="text-gray-400 hover:text-white">Contact</a>
+            </div>
+            <p class="text-gray-400">© 2024 EliteFire Arena. Not affiliated with Garena Free Fire.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-gray-800 p-8 rounded-lg w-96">
+            <h2 class="text-2xl font-bold mb-6 text-center">LOGIN</h2>
+            <input type="email" id="login-email" placeholder="Email" class="w-full p-3 mb-4 rounded bg-gray-700 border border-gray-600">
+            <input type="password" id="login-password" placeholder="Password" class="w-full p-3 mb-6 rounded bg-gray-700 border border-gray-600">
+            <button onclick="login()" class="w-full bg-orange-500 p-3 rounded font-bold hover:bg-orange-600">LOGIN</button>
+            <p class="text-center mt-4 text-gray-400">Don't have account? <button onclick="showRegister()" class="text-orange-500">Register</button></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/tournaments.js"></script>
+    <script src="js/payments.js"></script>
+    
+    <script>
+        // Temporary functions until Firebase is set up
+        document.getElementById('login-btn').addEventListener('click', function() {
+            document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('login-modal').classList.add('flex');
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('login-modal').addEventListener('click', function(e) {
+            if (e.target.id === 'login-modal') {
+                this.classList.add('hidden');
+                this.classList.remove('flex');
+            }
+        });
+
+        // Load tournaments
+        setTimeout(() => {
+            if (typeof loadTournaments === 'function') {
+                loadTournaments();
+            }
+        }, 100);
+    </script>
+</body>
+</html>
